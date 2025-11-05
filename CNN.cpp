@@ -5,9 +5,16 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
+#include "hls_stream.h"
+
 void CNN(float InModel[9216], float OutModel0[1], float Weights[2001])
 {
-	float OutPadConv0[11501];
+	#pragma HLS INTERFACE ap_memory storage_type=ram_1p port=InModel
+	#pragma HLS INTERFACE ap_memory storage_type=ram_1p port=Weights
+
+	#pragma HLS DATAFLOW
+	
+	float OutPadConv0[11502];
 	float conv2d[73728];
 	float batch_normalization[73728];
 	float depthwise_conv2d[8192];
@@ -37,4 +44,3 @@ void CNN(float InModel[9216], float OutModel0[1], float Weights[2001])
 	GlobalAveragePool2D_0(average_pooling2d_1, global_average_pooling2d);
 	Dense_0(global_average_pooling2d, OutModel0, &Weights[2000], &Weights[1984]);
 }
-
