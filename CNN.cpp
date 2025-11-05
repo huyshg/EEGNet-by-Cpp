@@ -7,7 +7,7 @@
 #include <math.h>
 void CNN(float InModel[9216], float OutModel0[1], float Weights[2001])
 {
-	float OutPadConv0[11502];
+	float OutPadConv0[11501];
 	float conv2d[73728];
 	float batch_normalization[73728];
 	float depthwise_conv2d[8192];
@@ -37,3 +37,4 @@ void CNN(float InModel[9216], float OutModel0[1], float Weights[2001])
 	GlobalAveragePool2D_0(average_pooling2d_1, global_average_pooling2d);
 	Dense_0(global_average_pooling2d, OutModel0, &Weights[2000], &Weights[1984]);
 }
+
